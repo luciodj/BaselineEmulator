@@ -1,7 +1,7 @@
 /*
 ** PIC16 test ROM program
 */	
-uint16 rom[] = {
+uint16_t rom[] = {
 /* 000 */    0x000,			// NOP
 /* 001 */	0xC00,			// movlw 0x00
 /* 002 */	0x005,			// TRISA

@@ -8,6 +8,8 @@
 #define TIMED
 
 #include <plib.h>
+#include <inttypes.h>
+
 // configuration bit settings, Fcy=80MHz, Fpb=40MHz
 #pragma config POSCMOD=XT, FNOSC=PRIPLL 
 #pragma config FPLLIDIV=DIV_2, FPLLMUL=MUL_20, FPLLODIV=DIV_1
@@ -15,8 +17,8 @@
 #define FPB     80000000
 #define FSY     80000000
 
-#define uint8       unsigned char   // 8-bit base type
-#define uint16      unsigned short  // 16-bit base type
+//#define uint8_t       unsigned char   // 8-bit base type
+//#define uint16      unsigned short  // 16-bit base type
 
 #define ROMSIZE     512     // program memory size in (12-bit) words (sun of all banks)
 #define RAMSIZE     32      // data memory size in bytes (sum of all banks)
@@ -47,7 +49,7 @@ typedef union
         unsigned iOp:   4;      // opcode
     };
     
-    uint16 opcode;
+    uint16_t opcode;
 } dcode;
 
 dcode ir;
@@ -113,15 +115,15 @@ unsigned PA;
 #include "test1.rom"
 
 // registers file
-uint8 ram[ RAMSIZE];
+uint8_t ram[ RAMSIZE];
 
 // hardware stack
-uint16 stack[ STACKDEPTH];
+uint16_t stack[ STACKDEPTH];
 
 // machine state
-uint16 pPC;
-uint8  pW, pSP, pWDT, pPS, fSleep;
-uint16 pTRISA, pTRISB, pOPTION;
+uint16_t pPC;
+uint8_t  pW, pSP, pWDT, pPS, fSleep;
+uint16_t pTRISA, pTRISB, pOPTION;
 
 // debugging options
 #ifdef DBG
@@ -134,7 +136,7 @@ int bkpt = 0xffff;
 #endif
 
 // hw stack emulation        
-void push( uint16 pc)
+void push( uint16_t pc)
 {
     if ( pSP< STACKDEPTH)
         stack[ pSP++] = pc;
@@ -142,7 +144,7 @@ void push( uint16 pc)
         return;             // overflow 
 } // push    
 
-uint16 pop( void)
+uint16_t pop( void)
 {
     if ( pSP > 0) 
         return stack[--pSP];
@@ -169,7 +171,7 @@ int fTRIS( int i, int v)
     
 } // fTRIS 
   
-uint8 readFILE( x)    
+uint8_t readFILE( uint8_t x)    
 { 
      int r; 
     if ((x) < MAXSFR) 
@@ -206,7 +208,7 @@ uint8 readFILE( x)
 } //readFILE 
 
 
- void writeFILE( int x, uint8 v)
+ void writeFILE( int x, uint8_t v)
 {
     if (x < MAXSFR)
     {
