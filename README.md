@@ -9,8 +9,5 @@ This is a simple Instruction Emulator for the (PIC16F54) baseline original (12-b
 * No attempt was made at optimising the code execution
 * Testing of correct instruction execution has been extremely limited (see .ROM binary file - edit using any text editor)
 
-
-
-
-
-
+## Linked Projects
+* [A cycle by cycle emulator (in Python)](https://github.com/luciodj/CycleByCyclePIC)
